@@ -3,15 +3,15 @@ using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using NArchitecture.Core.CrossCuttingConcerns.Exception.WebApi.Extensions;
-using NArchitecture.Core.CrossCuttingConcerns.Logging.Configurations;
-using NArchitecture.Core.ElasticSearch.Models;
-using NArchitecture.Core.Localization.WebApi;
-using NArchitecture.Core.Mailing;
-using NArchitecture.Core.Persistence.WebApi;
-using NArchitecture.Core.Security.Encryption;
-using NArchitecture.Core.Security.JWT;
-using NArchitecture.Core.Security.WebApi.Swagger.Extensions;
+using Core.CrossCuttingConcerns.Exception.WebApi.Extensions;
+using Core.CrossCuttingConcerns.Logging.Configurations;
+using Core.ElasticSearch.Models;
+using Core.Localization.WebApi;
+using Core.Mailing;
+using Core.Persistence.WebApi;
+using Core.Security.Encryption;
+using Core.Security.JWT;
+using Core.Security.WebApi.Swagger.Extensions;
 using Persistence;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using WebAPI;
@@ -29,7 +29,8 @@ builder.Services.AddApplicationServices(
     elasticSearchConfig: builder.Configuration.GetSection("ElasticSearchConfig").Get<ElasticSearchConfig>()
         ?? throw new InvalidOperationException("ElasticSearchConfig section cannot found in configuration."),
     tokenOptions: builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>()
-        ?? throw new InvalidOperationException("TokenOptions section cannot found in configuration.")
+        ?? throw new InvalidOperationException("TokenOptions section cannot found in configuration."),
+    configuration:builder.Configuration
 );
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddInfrastructureServices();

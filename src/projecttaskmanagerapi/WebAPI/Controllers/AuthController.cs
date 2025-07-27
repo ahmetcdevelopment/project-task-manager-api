@@ -9,7 +9,7 @@ using Application.Features.Auth.Commands.VerifyOtpAuthenticator;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using NArchitecture.Core.Application.Dtos;
+using Core.Application.Dtos;
 
 namespace WebAPI.Controllers;
 

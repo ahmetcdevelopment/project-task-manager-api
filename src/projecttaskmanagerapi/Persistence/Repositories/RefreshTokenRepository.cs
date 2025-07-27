@@ -1,7 +1,7 @@
 ﻿using Application.Services.Repositories;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using NArchitecture.Core.Persistence.Repositories;
+using Core.Persistence.Repositories;
 using Persistence.Contexts;
 
 namespace Persistence.Repositories;
@@ -18,7 +18,7 @@ public class RefreshTokenRepository : EfRepositoryBase<RefreshToken, Guid, BaseD
             .Where(r =>
                 r.UserId == userId
                 && r.RevokedDate == null
-                && r.ExpirationDate >= DateTime.UtcNow
+                && r.ExpiresDate >= DateTime.UtcNow
                 && r.CreatedDate.AddDays(refreshTokenTtl) <= DateTime.UtcNow
             )
             .ToListAsync();

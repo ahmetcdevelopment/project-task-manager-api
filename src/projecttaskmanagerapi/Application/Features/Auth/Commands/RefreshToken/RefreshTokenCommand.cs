@@ -3,7 +3,7 @@ using Application.Services.AuthService;
 using Application.Services.UsersService;
 using Domain.Entities;
 using MediatR;
-using NArchitecture.Core.Security.JWT;
+using Core.Security.JWT;
 
 namespace Application.Features.Auth.Commands.RefreshToken;
 

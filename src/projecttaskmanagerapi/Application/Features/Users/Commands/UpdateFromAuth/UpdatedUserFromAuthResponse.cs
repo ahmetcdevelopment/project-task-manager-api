@@ -1,5 +1,5 @@
-﻿using NArchitecture.Core.Application.Responses;
-using NArchitecture.Core.Security.JWT;
+﻿using Core.Application.Responses;
+using Core.Security.JWT;
 
 namespace Application.Features.Users.Commands.UpdateFromAuth;
 

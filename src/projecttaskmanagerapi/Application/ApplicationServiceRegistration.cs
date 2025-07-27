@@ -4,22 +4,23 @@ using Application.Services.AuthService;
 using Application.Services.UsersService;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using NArchitecture.Core.Application.Pipelines.Authorization;
-using NArchitecture.Core.Application.Pipelines.Caching;
-using NArchitecture.Core.Application.Pipelines.Logging;
-using NArchitecture.Core.Application.Pipelines.Transaction;
-using NArchitecture.Core.Application.Pipelines.Validation;
-using NArchitecture.Core.Application.Rules;
-using NArchitecture.Core.CrossCuttingConcerns.Logging.Abstraction;
-using NArchitecture.Core.CrossCuttingConcerns.Logging.Configurations;
-using NArchitecture.Core.CrossCuttingConcerns.Logging.Serilog.File;
-using NArchitecture.Core.ElasticSearch;
-using NArchitecture.Core.ElasticSearch.Models;
-using NArchitecture.Core.Localization.Resource.Yaml.DependencyInjection;
-using NArchitecture.Core.Mailing;
-using NArchitecture.Core.Mailing.MailKit;
-using NArchitecture.Core.Security.DependencyInjection;
-using NArchitecture.Core.Security.JWT;
+using Core.Application.Pipelines.Authorization;
+using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
+using Core.Application.Pipelines.Transaction;
+using Core.Application.Pipelines.Validation;
+using Core.Application.Rules;
+using Core.CrossCuttingConcerns.Logging.Abstraction;
+using Core.CrossCuttingConcerns.Logging.Configurations;
+using Core.CrossCuttingConcerns.Logging.Serilog.File;
+using Core.ElasticSearch;
+using Core.ElasticSearch.Models;
+using Core.Localization.Resource.Yaml.DependencyInjection;
+using Core.Mailing;
+using Core.Mailing.MailKit;
+using Core.Security.DependencyInjection;
+using Core.Security.JWT;
+using Microsoft.Extensions.Configuration;
 
 namespace Application;
 
@@ -30,7 +31,8 @@ public static class ApplicationServiceRegistration
         MailSettings mailSettings,
         FileLogConfiguration fileLogConfiguration,
         ElasticSearchConfig elasticSearchConfig,
-        TokenOptions tokenOptions
+        TokenOptions tokenOptions,
+        IConfiguration configuration
     )
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
@@ -59,7 +61,7 @@ public static class ApplicationServiceRegistration
 
         services.AddYamlResourceLocalization();
 
-        services.AddSecurityServices<Guid, int, Guid>(tokenOptions);
+        services.AddSecurityServices<Guid, int>(configuration);
 
         return services;
     }

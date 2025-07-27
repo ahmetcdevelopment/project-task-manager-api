@@ -1,6 +1,6 @@
-﻿using NArchitecture.Core.Application.Responses;
-using NArchitecture.Core.Security.Enums;
-using NArchitecture.Core.Security.JWT;
+﻿using Core.Application.Responses;
+using Core.Security.Enums;
+using Core.Security.JWT;
 
 namespace Application.Features.Auth.Commands.Login;
 

@@ -1,4 +1,4 @@
-using NArchitecture.Core.Application.Responses;
+using Core.Application.Responses;
 
 namespace Application.Features.Users.Commands.Update;
 

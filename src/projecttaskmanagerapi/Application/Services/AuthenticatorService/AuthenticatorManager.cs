@@ -1,11 +1,11 @@
 ﻿using Application.Services.Repositories;
 using Domain.Entities;
 using MimeKit;
-using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
-using NArchitecture.Core.Mailing;
-using NArchitecture.Core.Security.EmailAuthenticator;
-using NArchitecture.Core.Security.Enums;
-using NArchitecture.Core.Security.OtpAuthenticator;
+using Core.CrossCuttingConcerns.Exception.Types;
+using Core.Mailing;
+using Core.Security.EmailAuthenticator;
+using Core.Security.Enums;
+using Core.Security.OtpAuthenticator;
 
 namespace Application.Services.AuthenticatorService;
 

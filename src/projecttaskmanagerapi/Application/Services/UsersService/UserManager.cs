@@ -3,7 +3,7 @@ using Application.Features.Users.Rules;
 using Application.Services.Repositories;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
-using NArchitecture.Core.Persistence.Paging;
+using Core.Persistence.Paging;
 
 namespace Application.Services.UsersService;
 

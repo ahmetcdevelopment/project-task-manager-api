@@ -9,7 +9,7 @@
     <Folder Include="Enums\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NArchitecture.Core.Persistence" Version="1.1.1" />
-    <PackageReference Include="NArchitecture.Core.Security" Version="1.3.1" />
+    <ProjectReference Include="..\..\corePackages\Core.Persistence\Core.Persistence.csproj" />
+    <ProjectReference Include="..\..\corePackages\Core.Security\Core.Security.csproj" />
   </ItemGroup>
 </Project>

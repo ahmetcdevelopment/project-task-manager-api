@@ -1,5 +1,5 @@
 ﻿using Domain.Entities;
-using NArchitecture.Core.Security.JWT;
+using Core.Security.JWT;
 
 namespace Application.Services.AuthService;
 

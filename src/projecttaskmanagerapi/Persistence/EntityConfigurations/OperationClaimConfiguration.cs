@@ -5,7 +5,7 @@ using Application.Features.Users.Constants;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NArchitecture.Core.Security.Constants;
+using Core.Security.Constants;
 
 namespace Persistence.EntityConfigurations;
 

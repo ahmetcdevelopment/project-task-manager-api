@@ -6,9 +6,9 @@ using Application.Services.UsersService;
 using Domain.Entities;
 using MediatR;
 using MimeKit;
-using NArchitecture.Core.Application.Pipelines.Authorization;
-using NArchitecture.Core.Mailing;
-using NArchitecture.Core.Security.Enums;
+using Core.Application.Pipelines.Authorization;
+using Core.Mailing;
+using Core.Security.Enums;
 
 namespace Application.Features.Auth.Commands.EnableEmailAuthenticator;
 

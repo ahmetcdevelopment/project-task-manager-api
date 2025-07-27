@@ -5,8 +5,8 @@ using Application.Features.Users.Commands.UpdateFromAuth;
 using Application.Features.Users.Queries.GetById;
 using Application.Features.Users.Queries.GetList;
 using Microsoft.AspNetCore.Mvc;
-using NArchitecture.Core.Application.Requests;
-using NArchitecture.Core.Application.Responses;
+using Core.Application.Requests;
+using Core.Application.Responses;
 
 namespace WebAPI.Controllers;
 

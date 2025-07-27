@@ -4,7 +4,7 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
-using NArchitecture.Core.Application.Pipelines.Authorization;
+using Core.Application.Pipelines.Authorization;
 using static Application.Features.UserOperationClaims.Constants.UserOperationClaimsOperationClaims;
 
 namespace Application.Features.UserOperationClaims.Commands.Create;

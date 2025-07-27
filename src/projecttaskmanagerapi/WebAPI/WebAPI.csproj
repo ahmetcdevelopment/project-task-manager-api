@@ -6,7 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3">
       <PrivateAssets>all</PrivateAssets>
@@ -15,12 +15,12 @@
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.3" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
-	<PackageReference Include="NArchitecture.Core.CrossCuttingConcerns.Exception.WebApi" Version="1.1.0" />
-	<PackageReference Include="NArchitecture.Core.Localization.WebApi" Version="1.0.0" />
-	<PackageReference Include="NArchitecture.Core.Persistence.WebApi" Version="1.0.0" />
-	<PackageReference Include="NArchitecture.Core.Security.WebApi.Swagger" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\corePackages\Core.CrossCuttingConcerns.Exception.WebAPI\Core.CrossCuttingConcerns.Exception.WebApi.csproj" />
+    <ProjectReference Include="..\..\corePackages\Core.Localization.WebApi\Core.Localization.WebApi.csproj" />
+    <ProjectReference Include="..\..\corePackages\Core.Persistence.WebApi\Core.Persistence.WebApi.csproj" />
+    <ProjectReference Include="..\..\corePackages\Core.Security.WebApi.Swagger\Core.Security.WebApi.Swagger.csproj" />
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\Persistence\Persistence.csproj" />
