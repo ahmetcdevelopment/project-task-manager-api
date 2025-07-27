@@ -6,6 +6,9 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Core.Security.Constants;
+using Application.Features.Roles.Constants;
+using Application.Features.RoleOperationClaims.Constants;
+using Application.Features.UserRoles.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -97,6 +100,48 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
 
+        
+        #region Roles CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = RolesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = RolesOperationClaims.Read },
+                new() { Id = ++lastId, Name = RolesOperationClaims.Write },
+                new() { Id = ++lastId, Name = RolesOperationClaims.Create },
+                new() { Id = ++lastId, Name = RolesOperationClaims.Update },
+                new() { Id = ++lastId, Name = RolesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region RoleOperationClaims CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = RoleOperationClaimsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = RoleOperationClaimsOperationClaims.Read },
+                new() { Id = ++lastId, Name = RoleOperationClaimsOperationClaims.Write },
+                new() { Id = ++lastId, Name = RoleOperationClaimsOperationClaims.Create },
+                new() { Id = ++lastId, Name = RoleOperationClaimsOperationClaims.Update },
+                new() { Id = ++lastId, Name = RoleOperationClaimsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region UserRoles CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = UserRolesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = UserRolesOperationClaims.Read },
+                new() { Id = ++lastId, Name = UserRolesOperationClaims.Write },
+                new() { Id = ++lastId, Name = UserRolesOperationClaims.Create },
+                new() { Id = ++lastId, Name = UserRolesOperationClaims.Update },
+                new() { Id = ++lastId, Name = UserRolesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

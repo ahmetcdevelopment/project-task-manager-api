@@ -7,23 +7,32 @@ using MediatR;
 using Core.Application.Dtos;
 using Core.Security.Enums;
 using Core.Security.JWT;
+using System.Text.Json.Serialization;
 
 namespace Application.Features.Auth.Commands.Login;
 
 public class LoginCommand : IRequest<LoggedResponse>
 {
-    public UserForLoginDto UserForLoginDto { get; set; }
+    public Dictionary<string, string>? ClaimValues { get; set; }
+    public string? AuthenticatorCode { get; set; }
+    public string? Email { get; set; }
+    public string? Password { get; set; }
+    [JsonIgnore]
     public string IpAddress { get; set; }
 
     public LoginCommand()
     {
-        UserForLoginDto = null!;
+        //UserForLoginDto = null!;
         IpAddress = string.Empty;
     }
 
-    public LoginCommand(UserForLoginDto userForLoginDto, string ipAddress)
+    public LoginCommand(UserForLoginDto? userForLoginDto, string ipAddress)
     {
-        UserForLoginDto = userForLoginDto;
+        ClaimValues = userForLoginDto.ClaimValues;
+        AuthenticatorCode = userForLoginDto.AuthenticatorCode;
+        Email = userForLoginDto.Email;
+        Password = userForLoginDto.Password;
+
         IpAddress = ipAddress;
     }
 
@@ -31,6 +40,7 @@ public class LoginCommand : IRequest<LoggedResponse>
     {
         private readonly AuthBusinessRules _authBusinessRules;
         private readonly IAuthenticatorService _authenticatorService;
+
         private readonly IAuthService _authService;
         private readonly IUserService _userService;
 
@@ -38,8 +48,7 @@ public class LoginCommand : IRequest<LoggedResponse>
             IUserService userService,
             IAuthService authService,
             AuthBusinessRules authBusinessRules,
-            IAuthenticatorService authenticatorService
-        )
+            IAuthenticatorService authenticatorService)
         {
             _userService = userService;
             _authService = authService;
@@ -50,25 +59,29 @@ public class LoginCommand : IRequest<LoggedResponse>
         public async Task<LoggedResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             User? user = await _userService.GetAsync(
-                predicate: u => u.Email == request.UserForLoginDto.Email,
+                predicate: u => u.Email == request.Email,
                 cancellationToken: cancellationToken
             );
+
             await _authBusinessRules.UserShouldBeExistsWhenSelected(user);
-            await _authBusinessRules.UserPasswordShouldBeMatch(user!, request.UserForLoginDto.Password);
+
+            await _authBusinessRules.UserPasswordShouldBeMatch(user!, request.Password);
+
 
             LoggedResponse loggedResponse = new();
 
             if (user!.AuthenticatorType is not AuthenticatorType.None)
             {
-                if (request.UserForLoginDto.AuthenticatorCode is null)
+                if (request.AuthenticatorCode is null)
                 {
                     await _authenticatorService.SendAuthenticatorCode(user);
                     loggedResponse.RequiredAuthenticatorType = user.AuthenticatorType;
                     return loggedResponse;
                 }
 
-                await _authenticatorService.VerifyAuthenticatorCode(user, request.UserForLoginDto.AuthenticatorCode);
+                await _authenticatorService.VerifyAuthenticatorCode(user, request.AuthenticatorCode);
             }
+            user.TenantName = "Ahmet Çiftçi";
 
             AccessToken createdAccessToken = await _authService.CreateAccessToken(user);
 
@@ -78,6 +91,7 @@ public class LoginCommand : IRequest<LoggedResponse>
 
             loggedResponse.AccessToken = createdAccessToken;
             loggedResponse.RefreshToken = addedRefreshToken;
+            //loggedResponse.TenantName = tenant.Name;
             return loggedResponse;
         }
     }

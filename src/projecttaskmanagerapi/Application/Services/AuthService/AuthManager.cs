@@ -13,6 +13,7 @@ public class AuthManager : IAuthService
     private readonly ITokenHelper<Guid, int> _tokenHelper;
     private readonly TokenOptions _tokenOptions;
     private readonly IUserOperationClaimRepository _userOperationClaimRepository;
+    private readonly IRoleOperationClaimRepository _userRoleOperationclaimRepository;
     private readonly IMapper _mapper;
 
     public AuthManager(
@@ -21,7 +22,8 @@ public class AuthManager : IAuthService
         ITokenHelper<Guid, int> tokenHelper,
         IConfiguration configuration,
         IMapper mapper
-    )
+,
+        IRoleOperationClaimRepository userRoleOperationclaimRepository)
     {
         _userOperationClaimRepository = userOperationClaimRepository;
         _refreshTokenRepository = refreshTokenRepository;
@@ -32,11 +34,15 @@ public class AuthManager : IAuthService
             configuration.GetSection(tokenOptionsConfigurationSection).Get<TokenOptions>()
             ?? throw new NullReferenceException($"\"{tokenOptionsConfigurationSection}\" section cannot found in configuration");
         _mapper = mapper;
+        _userRoleOperationclaimRepository = userRoleOperationclaimRepository;
     }
 
     public async Task<AccessToken> CreateAccessToken(User user)
     {
-        IList<OperationClaim> operationClaims = await _userOperationClaimRepository.GetOperationClaimsByUserIdAsync(user.Id);
+        IList<OperationClaim> useroperationClaims = await _userOperationClaimRepository.GetOperationClaimsByUserIdAsync(user.Id);
+        IList<OperationClaim> userRoleOperationClaims = await _userRoleOperationclaimRepository.GetRoleOperationClaimsByUserIdAsync(user.Id);
+
+        List<OperationClaim> operationClaims = useroperationClaims.Concat(userRoleOperationClaims).DistinctBy(x => x.Id).ToList();
         AccessToken accessToken = _tokenHelper.CreateToken(
             user,
             operationClaims.Select(op => (Core.Security.Entities.OperationClaim<int>)op).ToImmutableList()

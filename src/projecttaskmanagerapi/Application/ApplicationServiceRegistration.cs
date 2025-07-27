@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
 using Application.Services.UsersService;
@@ -21,6 +21,9 @@ using Core.Mailing.MailKit;
 using Core.Security.DependencyInjection;
 using Core.Security.JWT;
 using Microsoft.Extensions.Configuration;
+using Application.Services.Roles;
+using Application.Services.RoleOperationClaims;
+using Application.Services.UserRoles;
 
 namespace Application;
 
@@ -63,6 +66,9 @@ public static class ApplicationServiceRegistration
 
         services.AddSecurityServices<Guid, int>(configuration);
 
+        services.AddScoped<IRoleService, RoleManager>();
+        services.AddScoped<IRoleOperationClaimService, RoleOperationClaimManager>();
+        services.AddScoped<IUserRoleService, UserRoleManager>();
         return services;
     }
 
